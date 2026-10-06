@@ -1,0 +1,160 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Mor'Tek Academy</title><meta name="theme-color" content="#03030D"><link rel="manifest" href="manifest.json"><link rel="icon" href="icon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Exo+2:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--a:#00D4FF;--b:#FFD700;--c:#00FF88;--r:#FF3366;--bg:#03030D;--cd:rgba(255,255,255,.05)}
+[data-t=gold]{--a:#FFD700;--b:#fff3b0;--bg:#0b0903}[data-t=ocean]{--a:#4FC3F7;--b:#80DEEA;--bg:#021A2B}[data-t=sunset]{--a:#FF7A59;--b:#FFC145;--bg:#1a0b14}
+*{box-sizing:border-box;margin:0}body{background:var(--bg);color:#fff;font:16px 'Exo 2',Inter,sans-serif;min-height:100vh;padding-bottom:76px}
+[data-bg=grid] body{background-image:linear-gradient(rgba(0,212,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,.05) 1px,transparent 1px);background-size:40px 40px}
+#bg span{position:fixed;width:2px;height:2px;background:var(--a);border-radius:50%;animation:d linear infinite;z-index:0}@keyframes d{from{transform:translateY(105vh)}to{transform:translateY(-5vh)}}
+h1,h2,h3,.o{font-family:Orbitron,sans-serif}h2{color:var(--a);margin:14px 0 8px;font-size:1.1rem;letter-spacing:1px}
+header{display:flex;align-items:center;gap:10px;padding:12px 16px;position:sticky;top:0;background:var(--bg);z-index:5;border-bottom:1px solid #fff2}
+header b{flex:1;font-family:Orbitron;color:var(--a)}main{position:relative;z-index:1;max-width:720px;margin:auto;padding:12px 16px}
+nav{position:fixed;bottom:0;left:0;right:0;display:flex;background:#000c;backdrop-filter:blur(12px);border-top:1px solid var(--a);z-index:9}
+nav a{flex:1;text-align:center;padding:10px 0;font-size:.72rem;color:#aaa;text-decoration:none}nav a.on{color:var(--a)}nav i{display:block;font-style:normal;font-size:1.3rem}
+.card{background:var(--cd);border:1px solid #fff2;border-radius:16px;padding:16px;margin:10px 0;backdrop-filter:blur(8px)}
+.btn{background:linear-gradient(135deg,var(--a),var(--c));color:#000;border:0;border-radius:12px;padding:12px 18px;font:700 .9rem Orbitron;cursor:pointer;width:100%;margin:6px 0}.btn.g{background:none;color:var(--a);border:1px solid var(--a)}
+.chip{display:inline-block;padding:8px 12px;margin:3px;border:1px solid #fff3;border-radius:20px;cursor:pointer;font-size:.85rem}.chip.on{border-color:var(--a);color:var(--a);box-shadow:0 0 12px var(--a)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px}.sc{padding:14px 6px;text-align:center;border:1px solid #fff2;border-radius:14px;cursor:pointer}.sc.on{border-color:var(--b);box-shadow:0 0 14px var(--b)}.sc span{font-size:1.7rem;display:block}
+input,select,textarea{width:100%;padding:11px;margin:4px 0;background:#0008;color:#fff;border:1px solid #fff3;border-radius:10px;font:inherit}
+.opt{display:block;width:100%;text-align:left;padding:14px;margin:7px 0;background:var(--cd);color:#fff;border:1px solid #fff3;border-radius:12px;font:inherit;cursor:pointer}.opt.ok{border-color:var(--c);background:#0f82}.opt.bad{border-color:var(--r);background:#f362}
+.q{font-size:1.15rem;line-height:1.5;white-space:pre-line}.bar{height:6px;background:#fff2;border-radius:3px}.bar i{display:block;height:100%;background:var(--a);border-radius:3px}
+.av{width:64px;height:64px;border-radius:50%;object-fit:cover;display:inline-flex;align-items:center;justify-content:center;font:700 1.3rem Orbitron;background:var(--a);color:#000}
+.price{font:900 1.6rem Orbitron;color:var(--b)}.tag{background:var(--b);color:#000;font-size:.65rem;padding:2px 8px;border-radius:8px;font-weight:700}
+table{width:100%;border-collapse:collapse;font-size:.85rem}td,th{padding:6px;border-bottom:1px solid #fff2;text-align:left}small,.m{color:#aaa}
+#toast{position:fixed;top:70px;left:50%;transform:translateX(-50%);background:var(--b);color:#000;padding:10px 16px;border-radius:10px;z-index:99;display:none;font-weight:700}
+@media print{nav,header,.np,#bg{display:none!important}body{background:#fff;color:#000}.card{border-color:#000}}
+</style></head><body data-x>
+<div id="bg"></div><header><b>MOR'TEK ACADEMY</b><button class="chip np" onclick="L()" id="lg">EN</button></header>
+<main id="v"></main><div id="toast"></div>
+<nav id="nav"></nav>
+<script src="questions-seed.js"></script><script src="codes.js"></script>
+<script>
+/* ===== CONFIG: edit these 4 lines ===== */
+const CFG={WORKER:'',/* e.g. https://mortek-pay.YOURNAME.workers.dev */
+ADMIN_HASH:'8a5fc30e041ad355cbaac6f14060cf7ad2711de4c9a2d176a41323e0255e17d6',/* SHA-256 of admin password, see DEPLOY.md */
+EXAM_START:'2026-10-20',/* set to your NSC exam start date */DEMO:5,
+PLANS:{scholar:{n:'Scholar',p:49.95,u:'/mo',d:'Unlimited access to every subject'},annual:{n:'Scholar Annual',p:200,u:'/yr',d:'BEST VALUE: pay once, save 66%'},pro:{n:'Pro Learner',p:99,u:'/mo',d:'Adaptive practice + priority support'},school:{n:'School Licence',p:299,u:'/mo',d:'Up to 50 learner profiles + teacher view'}}};
+const SUBJ=[['mathematics','Mathematics','📐'],['mathlit','Maths Literacy','🧮'],['physci','Physical Sciences','⚗️'],['coding','Coding & IT','💻'],['robotics','Robotics & AI','🤖'],['lifesci','Life Sciences','🧬'],['accounting','Accounting','📒'],['english','English HL/FAL','📖'],['afrikaans','Afrikaans HT/EAT','🦁'],['zulu','isiZulu FAL','🗣️'],['xhosa','isiXhosa FAL','🗣️'],['sesotho','Sesotho FAL','🗣️']];
+const GR=[8,9,10,11,12,'R'],PROV=['Eastern Cape','Free State','Gauteng','KwaZulu-Natal','Limpopo','Mpumalanga','Northern Cape','North West','Western Cape'];
+const TR={en:{play:'Play',board:'Ranks',plans:'Plans',me:'Profile',more:'More',left:'free tries left',lock:'Demo finished. Subscribe to keep learning.'},af:{play:'Speel',board:'Ranglys',plans:'Pakkette',me:'Profiel',more:'Meer',left:'gratis pogings oor',lock:'Demo klaar. Teken in om voort te leer.'},zu:{play:'Dlala',board:'Izikhundla',plans:'Izinhlelo',me:'Iphrofayili',more:'Okuningi'},xh:{play:'Dlala',board:'Izikhundla',plans:'Izicwangciso',me:'Iprofayile',more:'Ngakumbi'},st:{play:'Bapala',board:'Maemo',plans:'Merero',me:'Profaele',more:'Tse ling'}};
+const UIL=['en','af','zu','xh','st'];
+const $=s=>document.querySelector(s),E=s=>String(s??'').replace(/[&<>"']/g,c=>'&#'+c.charCodeAt(0)+';');
+const LS={g(k,d){try{return JSON.parse(localStorage.getItem('mt_'+k))??d}catch{return d}},s(k,v){try{localStorage.setItem('mt_'+k,JSON.stringify(v))}catch{}}};
+const sha=async t=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(t)))].map(b=>b.toString(16).padStart(2,'0')).join('');
+const shuf=a=>{a=[...a];for(let i=a.length;i>1;){const j=Math.random()*i--|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+const users=()=>LS.g('users',{}),U=()=>users()[LS.g('cur')],save=u=>{const a=users();a[u.email]=u;LS.s('users',a)};
+const ui=()=>LS.g('ui','en'),t=k=>(TR[ui()]||{})[k]||TR.en[k];
+const sub=()=>{const s=LS.g('sub');return s&&s.exp>Date.now()?s:null};
+const tries=()=>Math.max(LS.g('tries',0),+((document.cookie.match(/mt_t=(\d+)/)||[])[1]||0));
+const toast=m=>{const e=$('#toast');e.textContent=m;e.style.display='block';setTimeout(()=>e.style.display='none',2600)};
+const lvl=x=>Math.floor(Math.sqrt(x/50))+1,tier=l=>l<5?'🥉 Bronze':l<10?'🥈 Silver':l<15?'🥇 Gold':l<25?'💎 Platinum':'👑 Legend';
+const wk=()=>{const d=new Date();return d.getFullYear()+'-'+Math.ceil(((d-new Date(d.getFullYear(),0,1))/864e5+1)/7)};
+/* ---- IndexedDB question bank (schema: id,subject,grade,term,topic,difficulty,question,questionAfrikaans,options[],answer(index),hint,hintAfrikaans,audioText,curriculumRef) ---- */
+const idb=new Promise((r,j)=>{const q=indexedDB.open('mortek',1);q.onupgradeneeded=()=>q.result.createObjectStore('q',{keyPath:'id'}).createIndex('k','k');q.onsuccess=()=>r(q.result);q.onerror=j});
+const tx=async(m,f)=>{const d=await idb;return new Promise((r,j)=>{const x=d.transaction('q',m),q=f(x.objectStore('q'));x.oncomplete=()=>r(q&&q.result);x.onerror=j})};
+const put=a=>tx('readwrite',s=>{a.forEach(q=>{q.k=[q.subject,q.grade,q.term].join('|');s.put(q)})});
+const getK=k=>tx('readonly',s=>s.index('k').getAll(k)),all=()=>tx('readonly',s=>s.getAll()),del=id=>tx('readwrite',s=>s.delete(id)),cnt=()=>tx('readonly',s=>s.count());
+async function pool(s,g,tm){let r=[];for(const x of tm?[tm]:[1,2,3,4])r.push(...await getK([s,g==='R'?12:g,x].join('|')));return r}
+/* ---- unlimited maths generator (EN + AF) ---- */
+function gen(s){const r=n=>Math.random()*n|0,a=2+r(9),x=1+r(12),b=r(20),ty=r(3);let q,qa,ans,h,ha;
+if(ty==0&&s=='mathematics'){q=`Solve for x: ${a}x + ${b} = ${a*x+b}`;qa=`Los op vir x: ${a}x + ${b} = ${a*x+b}`;ans=x;h=`Subtract ${b}, then divide by ${a}.`;ha=`Trek ${b} af, deel dan deur ${a}.`}
+else if(ty==1||s=='mathlit'){const p=[5,10,15,20,25,50][r(6)],n=(1+r(20))*20;q=`What is ${p}% of R${n}?`;qa=`Wat is ${p}% van R${n}?`;ans=p*n/100;h=`${p}% = ${p}/100 × ${n}`;ha=`${p}% = ${p}/100 × ${n}`}
+else{const c=2+r(6),d=2+r(6);q=`Simplify: 2^${c} × 2^${d}`;qa=`Vereenvoudig: 2^${c} × 2^${d}`;ans=2**(c+d);h='Add the exponents.';ha='Tel die eksponente bymekaar.'}
+const o=new Set([ans]);while(o.size<4)o.add(Math.max(1,ans+(r(9)-4||5)));const op=shuf([...o]);
+return{id:'g'+Date.now()+r(1e4),subject:s,grade:10,term:1,topic:'Generated',difficulty:'medium',question:q,questionAfrikaans:qa,options:op.map(String),answer:op.indexOf(ans),hint:h,hintAfrikaans:ha}}
+/* ---- audio ---- */
+function say(x){const u=U();if(!u||!u.audio||!window.speechSynthesis)return;speechSynthesis.cancel();const s=new SpeechSynthesisUtterance(x);s.lang=u.lang=='af'?'af-ZA':'en-ZA';speechSynthesis.speak(s)}
+/* ---- router ---- */
+const NAV=[['play','🚀'],['board','🏆'],['plans','💳'],['me','👤'],['more','☰']];
+function go(h){location.hash=h}
+function L(){const i=(UIL.indexOf(ui())+1)%UIL.length;LS.s('ui',UIL[i]);R()}
+async function R(){const h=(location.hash||'#play').slice(1),u=U();document.documentElement.dataset.t=(u&&u.theme)||'cyber';document.documentElement.dataset.bg=(u&&u.bg)||'grid';
+$('#lg').textContent=ui().toUpperCase();$('#nav').innerHTML=NAV.map(([k,i])=>`<a href="#${k}" class="${h==k?'on':''}"><i>${i}</i>${t(k)}</a>`).join('');
+const bg=$('#bg');bg.innerHTML=(u&&u.bg=='particles'&&!(u.data))?Array.from({length:24},()=>`<span style="left:${Math.random()*100}vw;animation-duration:${8+Math.random()*12}s;animation-delay:-${Math.random()*15}s"></span>`).join(''):'';
+const V={play:vPlay,board:vBoard,plans:vPlans,me:vMe,more:vMore,admin:vAdmin,teacher:vTeacher,paid:vPaid,privacy:vPriv}[h]||vPlay;await V()}
+window.onhashchange=R;
+/* ---- PLAY ---- */
+let S={g:10,tm:0,s:'mathematics'},M=null;
+async function vPlay(){const u=U(),left=Math.max(0,CFG.DEMO-tries());if(!sub()&&left<=0)return lockView();const as=LS.g('assign');
+$('#v').innerHTML=`<h2>MISSION BRIEFING</h2>${sub()?`<p class=m>✅ ${CFG.PLANS[sub().plan]?.n||'Member'} active</p>`:`<p class=m>${left} ${t('left')}</p>`}
+${as?`<div class=card>📌 Assigned: ${E(as.s)} Term ${as.t}<button class=btn onclick="startM({s:'${as.s}',g:S.g,tm:${as.t},n:${as.n}})">START ASSIGNED</button></div>`:''}
+<div class=card><b>Grade</b><br>${GR.map(g=>`<span class="chip ${S.g==g?'on':''}" onclick="S.g='${g}'==='R'?'R':${+g||0};vPlay()">${g=='R'?'Rewrite':g}</span>`).join('')}<br><b>Term</b><br>${[0,1,2,3,4].map(x=>`<span class="chip ${S.tm==x?'on':''}" onclick="S.tm=${x};vPlay()">${x?'Term '+x:'All'}</span>`).join('')}</div>
+<div class=grid>${SUBJ.map(([k,n,i])=>`<div class="sc ${S.s==k?'on':''}" onclick="S.s='${k}';vPlay()"><span>${i}</span>${n}</div>`).join('')}</div>
+<button class=btn onclick="startM({s:S.s,g:S.g,tm:S.tm,n:10})">LAUNCH MISSION ▶</button>`}
+function lockView(){$('#v').innerHTML=`<div class=card style="text-align:center"><h2>🔒 DEMO COMPLETE</h2><p>${t('lock')}</p><p class=m>From R49.95/month · cancel anytime</p><button class=btn onclick="go('plans')">VIEW PLANS</button></div>`}
+async function startM(o){if(!sub()&&tries()>=CFG.DEMO)return lockView();let q=shuf(await pool(o.s,o.g,o.tm)).slice(0,o.n);
+if(q.length<o.n&&(o.s=='mathematics'||o.s=='mathlit'))while(q.length<o.n)q.push(gen(o.s));
+if(!q.length)return toast('No questions for this selection yet');
+if(!sub()){LS.s('tries',tries()+1);document.cookie='mt_t='+tries()+';max-age=31536000;path=/'}
+M={q,i:0,ok:0,s:o.s};ask()}
+function ask(){const q=M.q[M.i],u=U()||{},af=u.lang=='af',tx=af&&q.questionAfrikaans?q.questionAfrikaans:q.question;M.ord=shuf(q.options.map((_,i)=>i));M.done=0;
+$('#v').innerHTML=`<div class=bar><i style="width:${M.i/M.q.length*100}%"></i></div><p class=m>${M.i+1}/${M.q.length} · ${E(q.topic||'')}</p><div class=card><div class=q>${E(tx)}</div><button class="chip np" onclick="readQ()">🔊 Read</button></div>
+${M.ord.map(i=>`<button class=opt data-i=${i} onclick="pick(${i})">${E(q.options[i])}</button>`).join('')}<div id=fb></div>`;if(u.audio)readQ()}
+function readQ(){const q=M.q[M.i],af=(U()||{}).lang=='af';say((af&&q.questionAfrikaans||q.question)+'. '+q.options.join('. '))}
+function pick(i){if(M.done)return;M.done=1;const q=M.q[M.i],ok=i==q.answer,u=U(),af=u&&u.lang=='af';document.querySelectorAll('.opt').forEach(b=>{if(+b.dataset.i==q.answer)b.classList.add('ok');else if(+b.dataset.i==i)b.classList.add('bad')});
+if(ok){M.ok++;if(af)M.af=(M.af||0)+1}const h=(af&&q.hintAfrikaans)||q.hint;$('#fb').innerHTML=`<div class=card>${ok?'✅ +10 XP':'❌ '+E(h||'')}<button class=btn onclick="nextQ()">NEXT ▶</button></div>`;if(!ok&&h)say(h)}
+function nextQ(){M.i++;M.i<M.q.length?ask():fin()}
+function fin(){const u=U(),xp=M.ok*10,pf=M.ok==M.q.length;let msg='';
+if(u){const d=new Date().toDateString(),y=new Date(Date.now()-864e5).toDateString();u.streak=u.last==d?u.streak:u.last==y?(u.streak||0)+1:1;u.last=d;u.xp=(u.xp||0)+xp;const w=wk();u.wk=u.wk&&u.wk.w==w?u.wk:{w,xp:0};u.wk.xp+=xp;
+u.m=u.m||{};const m=u.m[M.s]=u.m[M.s]||{ok:0,n:0};m.ok+=M.ok;m.n+=M.q.length;u.af=(u.af||0)+(M.af||0);u.b=u.b||[];
+const A=(k,c)=>{if(c&&!u.b.includes(k)){u.b.push(k);msg+=`🏅 ${k}! `}};A('First Blood',M.ok>0);A('7-Day Streak',u.streak>=7);A('Perfect Mission',pf);A('Subject Master',m.ok>=50);A('Afrikaans Ace',u.af>=20);save(u);
+if(CFG.WORKER&&navigator.onLine)fetch(CFG.WORKER+'/api/lb',{method:'POST',body:JSON.stringify({w,n:u.name.split(' ')[0],s:u.school,p:u.province,xp:u.wk.xp,e:u.email})}).catch(()=>{})}
+const tx=`I scored ${M.ok}/${M.q.length} on Mor'Tek Academy! 🚀 Join me: ${location.origin}${location.pathname}`;
+$('#v').innerHTML=`<div class=card style="text-align:center"><h2>MISSION ${M.ok>=6?'ACCOMPLISHED':'COMPLETE'}</h2><div class=price>${M.ok}/${M.q.length}</div><p>+${xp} XP ${msg}</p>${u?'':'<p class=m>Create a profile to save XP & join the leaderboard.</p>'}
+<a class="btn np" style="display:block;text-decoration:none;text-align:center" href="https://wa.me/?text=${encodeURIComponent(tx)}" target=_blank>SHARE ON WHATSAPP</a><button class="btn g" onclick="go('play');vPlay()">PLAY AGAIN</button></div>`}
+/* ---- PROFILE ---- */
+const av=u=>u.photo&&!u.data?`<img class=av src="${u.photo}">`:`<span class=av>${E((u.name||'?').split(' ').map(x=>x[0]).slice(0,2).join('').toUpperCase())}</span>`;
+function vMe(){const u=U();if(!u)return $('#v').innerHTML=`<h2>JOIN THE ACADEMY</h2><div class=card><input id=n placeholder="Full name"><input id=e type=email placeholder="Email"><input id=p type=password placeholder="Password"><input id=sc placeholder="School name"><select id=g>${GR.map(g=>`<option value="${g}">${g=='R'?'Matric Rewrite':'Grade '+g}</option>`).join('')}</select><select id=pr>${PROV.map(p=>`<option>${p}</option>`).join('')}</select><textarea id=bio maxlength=200 placeholder="Bio (200 characters)"></textarea><input type=file id=ph accept="image/*"><label class=m><input type=checkbox id=co style="width:auto"> I consent (or my parent/guardian does, if I am under 18) to Mor'Agent Group processing my information under POPIA. <a href="#privacy" style="color:var(--a)">Privacy policy</a></label><button class=btn onclick="signup()">CREATE PROFILE</button><button class="btn g" onclick="login()">LOG IN (email + password above)</button></div>`;
+const l=lvl(u.xp||0);$('#v').innerHTML=`<div class=card style="text-align:center">${av(u)}<h2>${E(u.name)}</h2><p class=m>${E(u.school)} · ${u.grade=='R'?'Rewrite':'Grade '+u.grade} · ${E(u.province)}</p><p>${E(u.bio||'')}</p></div>
+<div class=card><div class=price>${u.xp||0} XP</div>Level ${l} · ${tier(l)} · 🔥 ${u.streak||0} day streak<div class=bar style="margin:8px 0"><i style="width:${(u.xp||0)%50*2}%"></i></div>${(u.b||[]).map(b=>`<span class=chip>🏅 ${E(b)}</span>`).join('')||'<small>No badges yet. Answer a question to earn First Blood!</small>'}</div>
+<div class=card><b>Mastery</b>${SUBJ.filter(s=>u.m&&u.m[s[0]]).map(([k,n])=>`<p>${n}: ${Math.round(u.m[k].ok/u.m[k].n*100)}%<span class=bar style="display:block"><i style="width:${u.m[k].ok/u.m[k].n*100}%"></i></span></p>`).join('')||'<small>Play to build mastery.</small>'}</div>
+<div class=card><b>Settings</b><select onchange="set('theme',this.value)">${['cyber','gold','ocean','sunset'].map(x=>`<option ${u.theme==x?'selected':''}>${x}</option>`).join('')}</select><select onchange="set('bg',this.value)">${['grid','particles','minimal'].map(x=>`<option ${u.bg==x?'selected':''}>${x}</option>`).join('')}</select><select onchange="set('lang',this.value)"><option value=en ${u.lang=='en'?'selected':''}>Questions: English</option><option value=af ${u.lang=='af'?'selected':''}>Vrae: Afrikaans</option></select>
+<label><input type=checkbox style="width:auto" ${u.audio?'checked':''} onchange="set('audio',this.checked)"> 🔊 Audio mode</label><br><label><input type=checkbox style="width:auto" ${u.data?'checked':''} onchange="set('data',this.checked)"> 📶 Data-saver (no photos or effects)</label><button class="btn g" onclick="LS.s('cur','');R()">LOG OUT</button></div>`}
+const set=(k,v)=>{const u=U();u[k]=v;save(u);R()};
+async function signup(){const g=id=>$('#'+id).value.trim();if(!g('n')||!g('e').includes('@')||g('p').length<6||!$('#co').checked)return toast('Fill name, email, 6+ char password and tick consent');
+const u={name:g('n'),email:g('e').toLowerCase(),pw:await sha(g('p')),school:g('sc'),grade:g('g'),province:g('pr'),bio:g('bio').slice(0,200),theme:'cyber',bg:'grid',lang:'en',xp:0,streak:0,joined:Date.now()};
+const f=$('#ph').files[0];if(f){const im=new Image();im.onload=()=>{const c=document.createElement('canvas');c.width=c.height=128;c.getContext('2d').drawImage(im,0,0,128,128);u.photo=c.toDataURL('image/jpeg',.7);fin2(u)};im.src=URL.createObjectURL(f)}else fin2(u)}
+/* PRODUCTION: store photos in Cloudflare R2 instead of base64 localStorage */
+function fin2(u){save(u);LS.s('cur',u.email);toast('Welcome, '+u.name.split(' ')[0]+'!');R()}
+async function login(){const e=$('#e').value.trim().toLowerCase(),u=users()[e];if(u&&u.pw==await sha($('#p').value)){LS.s('cur',e);R()}else toast('Wrong email or password on this device')}
+/* ---- LEADERBOARD ---- */
+let SC='global';
+async function vBoard(){const u=U(),w=wk();let rows=Object.values(users()).filter(x=>x.wk&&x.wk.w==w).map(x=>({n:x.name.split(' ')[0],s:x.school,p:x.province,xp:x.wk.xp}));
+if(CFG.WORKER&&navigator.onLine)try{rows=await fetch(CFG.WORKER+'/api/lb?w='+w).then(r=>r.json())}catch{}
+if(SC=='school'&&u)rows=rows.filter(r=>r.s==u.school);if(SC=='province'&&u)rows=rows.filter(r=>r.p==u.province);rows.sort((a,b)=>b.xp-a.xp);
+$('#v').innerHTML=`<h2>WEEKLY LEADERBOARD</h2>${['global','school','province'].map(k=>`<span class="chip ${SC==k?'on':''}" onclick="SC='${k}';vBoard()">${k}</span>`).join('')}<div class=card><table>${rows.slice(0,25).map((r,i)=>`<tr><td>${i+1}</td><td>${E(r.n)}<br><small>${E(r.s)}</small></td><td>${r.xp} XP</td></tr>`).join('')||'<tr><td>No scores this week yet. Be first!</td></tr>'}</table></div>`}
+/* ---- PLANS + PAYFAST ---- */
+function vPlans(){const s=sub();$('#v').innerHTML=`<h2>MEMBERSHIP</h2><p class=m>Prices in ZAR. Not VAT registered. Cancel anytime. Pay by card, Instant EFT, SnapScan, Zapper, Apple/Google Pay via PayFast.</p>${s?`<div class=card>✅ Active: ${CFG.PLANS[s.plan]?.n||s.plan} until ${new Date(s.exp).toLocaleDateString('en-ZA')}</div>`:''}
+<div class=card><b>Demo (Free)</b><p class=m>${CFG.DEMO} tries per device</p></div>${Object.entries(CFG.PLANS).map(([k,p])=>`<div class=card>${k=='annual'?'<span class=tag>BEST VALUE</span>':''}<h3>${p.n}</h3><span class=price>R${p.p.toFixed(2)}</span>${p.u}<p class=m>${p.d}</p><button class=btn onclick="buy('${k}')">SUBSCRIBE</button></div>`).join('')}
+<div class=card><b>Have an activation code?</b><input id=cd placeholder="MT-S-XXXX-XXXX"><button class="btn g" onclick="redeem()">ACTIVATE</button></div>`}
+async function buy(k){const u=U();if(!u){toast('Create a profile first');return go('me')}
+if(!CFG.WORKER)return toast('Payments not connected yet. See DEPLOY.md step 3.');
+/* Worker builds fields + MD5 signature server-side (merchant key/passphrase never in browser) */
+const r=await fetch(CFG.WORKER+'/api/checkout',{method:'POST',body:JSON.stringify({plan:k,email:u.email,name:u.name,origin:location.origin+location.pathname})}).then(r=>r.json());
+const f=document.createElement('form');f.method='POST';f.action=r.action;r.fields.forEach(([n,v])=>{const i=document.createElement('input');i.type='hidden';i.name=n;i.value=v;f.append(i)});document.body.append(f);f.submit()}
+async function redeem(){const h=await sha($('#cd').value.trim().toUpperCase()),c=(window.CODES||[]).find(x=>x.h==h),used=LS.g('used',[]);if(!c||used.includes(h))return toast('Invalid or used code');used.push(h);LS.s('used',used);LS.s('sub',{plan:c.plan,exp:Date.now()+c.days*864e5});toast('Activated!');vPlans()}
+async function vPaid(){$('#v').innerHTML='<div class=card>Confirming your payment…</div>';const u=U();if(CFG.WORKER&&u)for(let i=0;i<6;i++){try{const s=await fetch(CFG.WORKER+'/api/status?email='+encodeURIComponent(u.email)).then(r=>r.json());if(s.exp>Date.now()){LS.s('sub',s);toast('Subscription active!');return go('plans')}}catch{}await new Promise(r=>setTimeout(r,2500))}
+$('#v').innerHTML='<div class=card>Payment received? It can take a minute. Reopen this page shortly or contact support.</div>'}
+/* ---- MORE: Matric Panic, NSFAS, careers, teacher ---- */
+const CAR=[['Software / AI Engineer','Maths + IT → BSc Computer Science → Developer, Data Scientist'],['Engineer','Maths + Physical Sciences → BEng → Civil, Electrical, Mechanical'],['Health Sciences','Life Sciences + Physical Sciences → MBChB / Pharmacy / Nursing'],['Chartered Accountant','Accounting + Maths → BCom Accounting → CA(SA)']];
+function vMore(){const d=Math.ceil((new Date(CFG.EXAM_START)-Date.now())/864e5);$('#v').innerHTML=`<h2>MORE</h2>${d>0&&d<=30?`<div class=card style="border-color:var(--r)"><h3>🚨 MATRIC PANIC MODE</h3><div class=price>${d} days</div><button class=btn onclick="startM({s:S.s,g:12,tm:0,n:20})">20-QUESTION BLITZ</button></div>`:`<div class=card>⏳ ${d>0?d+' days to exams. Panic Mode switches on at 30 days.':'Set EXAM_START in the config.'}</div>`}
+<div class=card><h3>🎓 NSFAS & Bursaries</h3><p class=m>Grade 12s: apply for NSFAS funding at nsfas.org.za and check university and company bursary deadlines early. Dates change every year, so confirm on the official sites.</p></div>
+<div class=card><h3>🧭 Career Explorer</h3>${CAR.map(c=>`<p><b>${c[0]}</b><br><small>${c[1]}</small></p>`).join('')}</div>
+<div class=card><button class=btn onclick="go('teacher')">TEACHER / PARENT DASHBOARD</button><button class="btn g" onclick="go('privacy')">PRIVACY & TERMS</button></div>`}
+function vTeacher(){const us=Object.values(users()),sc=sub()&&sub().plan=='school',list=sc?us:us.filter(x=>x.email==LS.g('cur'));
+$('#v').innerHTML=`<h2>TEACHER / PARENT</h2><p class=m>${sc?'School Licence: multi-learner view':'Showing your own profile. School Licence unlocks all learners.'}</p><div class=card><table><tr><th>Learner</th><th>XP</th><th>Streak</th><th>Mastery</th></tr>${list.map(x=>`<tr><td>${E(x.name)}</td><td>${x.xp||0}</td><td>${x.streak||0}</td><td>${Object.entries(x.m||{}).map(([k,v])=>k+' '+Math.round(v.ok/v.n*100)+'%').join(', ')}</td></tr>`).join('')}</table><button class="btn g np" onclick="print()">🖨 PRINT REPORT</button></div>
+<div class="card np"><b>Assign term mission</b><select id=as>${SUBJ.map(s=>`<option value=${s[0]}>${s[1]}</option>`).join('')}</select><select id=at>${[1,2,3,4].map(x=>`<option>${x}</option>`).join('')}</select><button class=btn onclick="LS.s('assign',{s:\$('#as').value,t:+\$('#at').value,n:10});toast('Assigned on this device')">ASSIGN</button></div>`}
+function vPriv(){$('#v').innerHTML=`<h2>PRIVACY & TERMS</h2><div class=card><p>Mor'Agent Group (Reg. 2021/875500/07) collects name, email, school, grade, province and progress to run the academy, under POPIA. We do not sell personal information. Learners under 18 need parent/guardian consent. Request access or deletion: moragentai@gmail.com.</p><p>Subscriptions are billed in ZAR via PayFast, are not VAT-inclusive (not VAT registered) and can be cancelled anytime; access continues to the end of the paid period.</p><p class=m>Stub: have this reviewed by a legal professional before launch.</p></div>`}
+/* ---- ADMIN (#admin). Client-side gate = convenience only; real data protection needs the Worker. ---- */
+async function vAdmin(){if(!window.AOK){const p=prompt('Admin password');if(!p||await sha(p)!=CFG.ADMIN_HASH){go('play');return toast('Denied')}window.AOK=1}
+const qs=await all(),us=Object.values(users());$('#v').innerHTML=`<h2>ADMIN</h2><div class=card>Questions: <b>${qs.length}</b> · Users (this device): <b>${us.length}</b> · Active sub: <b>${sub()?1:0}</b><br><small>Revenue & all-device users live in Worker KV (DEPLOY.md).</small><button class="btn g" onclick="exp()">EXPORT ALL DATA</button></div>
+<div class=card><b>Bulk import</b> (JSON array or CSV: subject,grade,term,topic,difficulty,question,questionAfrikaans,a,b,c,d,answer(A-D),hint,hintAfrikaans)<textarea id=im rows=5></textarea><input type=file id=fi accept=".json,.csv"><button class=btn onclick="imp()">IMPORT</button></div>
+<div class=card><b>Moderate</b><input id=sq placeholder="Search questions" oninput="mod()"><div id=ml></div></div>`;mod()}
+async function mod(){const s=($('#sq').value||'').toLowerCase(),qs=(await all()).filter(q=>(q.question+q.id).toLowerCase().includes(s)).slice(0,30);$('#ml').innerHTML=qs.map(q=>`<p><small>${E(q.subject)} G${q.grade} T${q.term}</small> ${E(q.question.slice(0,70))} <button class=chip onclick="del('${q.id}').then(mod)">🗑</button></p>`).join('')}
+function csv(x){const r=[];let w=[],c='',q=0;for(let i=0;i<x.length;i++){const h=x[i];if(q){if(h=='"'){if(x[i+1]=='"'){c+='"';i++}else q=0}else c+=h}else if(h=='"')q=1;else if(h==','){w.push(c);c=''}else if(h=='\n'||h=='\r'){if(h=='\r'&&x[i+1]=='\n')i++;w.push(c);c='';if(w.some(z=>z.trim()))r.push(w);w=[]}else c+=h}w.push(c);if(w.some(z=>z.trim()))r.push(w);return r}
+async function imp(){let tx=$('#im').value;const f=$('#fi').files[0];if(f)tx=await f.text();tx=tx.trim();let a=[];try{if(tx[0]=='['||tx[0]=='{')a=[].concat(JSON.parse(tx));else{const[h,...rs]=csv(tx),H=h.map(z=>z.trim());a=rs.map(r=>{const o=Object.fromEntries(H.map((k,i)=>[k,(r[i]||'').trim()]));return{...o,options:[o.a,o.b,o.c,o.d].filter(Boolean),answer:'ABCD'.indexOf((o.answer||'A').toUpperCase())}})}}catch(e){return toast('Bad format')}
+a=a.filter(q=>q.question&&q.options&&q.options.length>1&&q.answer>=0).map((q,i)=>({...q,grade:+q.grade||10,term:+q.term||1,id:q.id||'i'+Date.now()+i}));await put(a);toast(a.length+' questions imported');vAdmin()}
+async function exp(){const b=new Blob([JSON.stringify({questions:await all(),users:users()},null,1)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='mortek-export.json';a.click()}
+/* ---- boot ---- */
+(async()=>{if((await cnt())==0&&window.QSEED)await put(window.QSEED);if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('sw.js');R()})();
+</script></body></html>
