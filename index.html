@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mor'Tek Academy Presentation</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root{
+      --bg:#090909;--bg2:#111111;--gold:#c9a227;--gold2:#ffd700;--cyan:#00d4ff;--green:#00ff88;--red:#ff4d5f;--text:#ececec;--muted:#a9a9a9;--card:#141414;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,Arial,sans-serif;background:linear-gradient(180deg,#050505,#0c0c0c);color:var(--text)}
+    .deck{scroll-snap-type:y mandatory;overflow-y:scroll;height:100vh}
+    .slide{height:100vh;scroll-snap-align:start;padding:56px 64px;display:flex;flex-direction:column;justify-content:center;position:relative;background:
+      radial-gradient(circle at top right, rgba(201,162,39,.12), transparent 30%),
+      radial-gradient(circle at bottom left, rgba(0,212,255,.08), transparent 30%),
+      linear-gradient(135deg, #090909, #111111 50%, #0b0b0b);
+      border-bottom:1px solid rgba(255,255,255,.06)}
+    .slide:before{content:"";position:absolute;inset:24px;border:1px solid rgba(201,162,39,.18);pointer-events:none;border-radius:18px}
+    .kicker{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--gold2);margin-bottom:12px}
+    h1,h2,h3{margin:0 0 12px 0;font-family:Orbitron,Arial,sans-serif;letter-spacing:.5px}
+    h1{font-size:52px;line-height:1.05}
+    h2{font-size:38px;color:#fff}
+    h3{font-size:24px;color:var(--gold2)}
+    p,li{font-size:20px;line-height:1.55;color:#e8e8e8}
+    .sub{font-size:22px;color:#d7d7d7;max-width:1100px}
+    .muted{color:var(--muted)}
+    .grid2,.grid3,.grid4{display:grid;gap:20px;margin-top:24px}
+    .grid2{grid-template-columns:1.15fr .85fr}
+    .grid3{grid-template-columns:repeat(3,1fr)}
+    .grid4{grid-template-columns:repeat(4,1fr)}
+    .card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:22px;box-shadow:0 10px 30px rgba(0,0,0,.22)}
+    .metric{font-family:Orbitron,Arial,sans-serif;font-size:38px;color:var(--gold2)}
+    .label{font-size:14px;letter-spacing:1.6px;text-transform:uppercase;color:var(--muted)}
+    ul{padding-left:22px;margin:10px 0}
+    .cover h1 span{color:var(--gold2)}
+    .pill{display:inline-block;padding:8px 14px;border-radius:999px;border:1px solid rgba(0,255,136,.35);color:var(--green);font-size:14px;letter-spacing:2px;text-transform:uppercase}
+    .footer{position:absolute;bottom:34px;right:46px;color:rgba(255,255,255,.25);font-size:14px}
+    table{width:100%;border-collapse:collapse;margin-top:12px;font-size:17px}
+    th,td{padding:12px;border-bottom:1px solid rgba(255,255,255,.08);text-align:left}
+    th{color:var(--gold2);font-family:Orbitron,Arial,sans-serif;font-size:14px;letter-spacing:1.2px;text-transform:uppercase}
+    .timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:28px}
+    .step{padding:18px;border-left:3px solid var(--gold);background:rgba(255,255,255,.03);border-radius:12px}
+    .small{font-size:16px;color:#d8d8d8}
+    .persona{border-top:4px solid var(--cyan)}
+    .persona:nth-child(2){border-top-color:var(--green)}
+    .persona:nth-child(3){border-top-color:var(--gold)}
+    .slide-num{position:absolute;top:34px;right:44px;color:rgba(255,255,255,.35);font-family:Orbitron,Arial,sans-serif}
+    canvas{max-height:360px !important}
+    .two-col{columns:2;column-gap:36px}
+    .badge{display:inline-block;background:rgba(201,162,39,.12);border:1px solid rgba(201,162,39,.28);padding:6px 10px;border-radius:10px;color:var(--gold2);font-size:14px;margin-right:8px;margin-bottom:8px}
+    @media (max-width: 900px){
+      .slide{padding:32px 24px;height:auto;min-height:100vh}
+      .grid2,.grid3,.grid4,.timeline{grid-template-columns:1fr}
+      h1{font-size:36px} h2{font-size:28px} p,li{font-size:18px}
+    }
+  </style>
+</head>
+<body>
+<div class="deck">
+  <section class="slide cover">
+    <div class="slide-num">01</div>
+    <div class="kicker">EdTech Presentation</div>
+    <h1>Mor'<span>Tek</span> Academy™</h1>
+    <p class="sub">A 20-slide product, pricing, curriculum, and analytics presentation built from the uploaded HTML MVP. Focus: CAPS-aligned Grades 11–12 learning in Mathematics, Coding & IT, and Robotics & AI.</p>
+    <div style="margin-top:18px"><span class="pill">CAPS-Aligned</span></div>
+    <div class="grid4" style="margin-top:34px">
+      <div class="card"><div class="metric">180</div><div class="label">Question Bank Items</div></div>
+      <div class="card"><div class="metric">48</div><div class="label">Curriculum Topics</div></div>
+      <div class="card"><div class="metric">4</div><div class="label">Pricing Plans</div></div>
+      <div class="card"><div class="metric">3</div><div class="label">Subjects</div></div>
+    </div>
+    <div class="footer">Generated from uploaded source file</div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-num">02</div>
+    <div class="kicker">Executive Summary</div>
+    <h2>What the source file reveals</h2>
+    <div class="grid2">
+      <div class="card">
+        <ul>
+          <li>Gamified learning experience with grade, subject, and difficulty selection.</li>
+          <li>CAPS-focused curriculum spanning Grades 11 and 12.</li>
+          <li>Mission-based assessment loop with timer, streaks, lives, and points.</li>
+          <li>Freemium-to-institution pricing ladder for learner growth and school sales.</li>
+          <li>Strong premium visual identity suitable for direct-to-student and B2B school positioning.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Key takeaways</h3>
+        <p><b>Product:</b> already MVP-ready as a functional quiz-based learning experience.</p>
+        <p><b>Commercial:</b> clear price anchors at R49, R99, and R299.</p>
+        <p><b>Scalability:</b> content model is structured enough to expand by subject, grade, and difficulty.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-num">03</div>
+    <div class="kicker">Problem & Opportunity</div>
+    <h2>Why this product matters</h2>
+    <div class="grid3">
+      <div class="card"><h3>Student Challenge</h3><p>Senior-phase learners need engaging repetition, confidence-building practice, and subject-specific support aligned to local curriculum expectations.</p></div>
+      <div class="card"><h3>Teacher Challenge</h3><p>Schools need lightweight digital tools that reinforce curriculum, track progress, and offer practical classroom or after-school value.</p></div>
+      <div class="card"><h3>Market Opportunity</h3><p>Mor'Tek sits at the overlap of exam prep, gamified learning, and school licensing—especially attractive for STEM-focused learners and institutions.</p></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-num">04</div>
+    <div class="kicker">Solution Overview</div>
+    <h2>A premium gamified CAPS learning platform</h2>
+    <div class="grid2">
+      <div class="card">
+        <p>The source HTML implements a sleek mobile-friendly academy with onboarding, grade and subject selection, timed missions, results summaries, leaderboard mechanics, membership plans, settings, and curriculum browsing.</p>
+        <div style="margin-top:12px">
+          <span class="badge">Maths</span>
+          <span class="badge">Coding & IT</span>
+          <span class="badge">Robotics & AI</span>
+          <span class="badge">Grade 11</span>
+          <span class="badge">Grade 12</span>
+          <span class="badge">Easy / Medium / Hard</span>
+        </div>
+      </div>
+      <div class="card">
+        <table>
+          <tr><th>Layer</th><th>What exists</th></tr>
+          <tr><td>Learning</td><td>Question bank + hints + subject/grade mapping</td></tr>
+          <tr><td>Engagement</td><td>Lives, streaks, timers, leaderboard</td></tr>
+          <tr><td>Monetization</td><td>4 plans from free to school licensing</td></tr>
+          <tr><td>Brand</td><td>Premium futuristic black/gold visual system</td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-num">05</div>
+    <div class="kicker">Product Experience</div>
+    <h2>Core user journey</h2>
+    <div class="timeline">
+      <div class="step"><h3>1. Enter</h3><p class="small">Landing splash → academy entry → brand trust and positioning.</p></div>
+      <div class="step"><h3>2. Configure</h3><p class="small">Select grade, subject, and difficulty before launching mission.</p></div>
+      <div class="step"><h3>3. Play</h3><p class="small">Timed 10-question mission with scoring, hints, streaks, and lives.</p></div>
+      <div class="step"><h3>4. Retain</h3><p class="small">Results, leaderboard, plans, and curriculum views support repeat sessions and upgrades.</p></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-num">06</div>
+    <div class="kicker">Gamification Engine</div>
+    <h2>Mechanics designed for momentum</h2>
+    <div class="grid2">
+      <div class="card">
+        <canvas id="chartGame"></canvas>
+      </div>
+      <div class="card">
+        <ul>
+          <li><b>10 questions per mission</b> creates a manageable practice loop.</li>
+          <li><b>3 lives</b> increases tension without over-punishing learners.</li>
+          <li><b>Timers:</b> 25s / 20s / 15s by difficulty encourage pace and recall.</li>
+          <li><b>Points:</b> 100 / 150 / 200 reward progression into harder content.</li>
+          <li><b>Streak system</b> supports emotional reward and repeat usage.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-num">07</div>
+    <div class="kicker">Curriculum Coverage</div>
+    <h2>48 topics across 6 curriculum blocks</h2>
+    <div class="grid2">
+      <div class="card"><canvas id="chartCurriculum"></canvas></div>
+      <div class="card">
+        <p>Each subject-grade block lists <b>8 topics</b>, producing a balanced content foundation across six blocks:</p>
+        <ul>
+          <li>Grade 11 Mathematics</li>
+          <li>Grade 12 Mathematics</li>
+          <li>Grade 11 Coding & IT</li>
+          <li>Grade 12 Coding & IT</li>
+          <li>Grade 11 Robotics</li>
+          <li>Grade 12 Robotics & AI</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-num">08</div>
+    <div class="kicker">Question Bank Analytics</div>
+    <h2>Evenly distributed assessment coverage</h2>
+    <div class="grid2">
+      <div class="card"><canvas id="chartQuestions"></canvas></div>
+      <div class="card">
+        <table>
+          <tr><th>Dimension</th><th>Coverage</th></tr>
+          <tr><td>Total questions</td><td>180</td></tr>
+          <tr><td>Per subject</td><td>60</td></tr>
+          <tr><td>Per grade within subject</td><td>30</td></tr>
+          <tr><td>Per difficulty within grade/subject</td><td>10</td></tr>
+        </table>
+        <p class="small">This structure is strong for analytics because it produces clean content taxonomies and predictable expansion rules.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-num">09</div>
+    <div class="kicker">Pricing Analytics</div>
+    <h2>Freemium-to-institution ladder</h2>
+    <div class="grid2">
+      <div class="card"><canvas id="chartPricing"></canvas></div>
+      <div class="card">
+        <table>
+          <tr><th>Plan</th><th>Price</th><th>Positioning</th></tr>
+          <tr><td>Free</td><td>R0</td><td>Entry and trial</td></tr>
+          <tr><td>Scholar</td><td>R49</td><td>Core student monetization</td></tr>
+          <tr><td>Pro Learner</td><td>R99</td><td>Premium individual upsell</td></tr>
+          <tr><td>School License</td><td>R299</td><td>B2B classroom / school access</td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-num">10</div>
+    <div class="kicker">Feature Depth</div>
+    <h2>Feature expansion by plan</h2>
+    <div class="grid2">
+      <div class="card"><canvas id="chartFeatures"></canvas></div>
+      <div class="card">
+        <p>Feature counts from the plan descriptions show a sensible value ladder:</p>
+        <ul>
+          <li>Free: essential access</li>
+          <li>Scholar: unlocks breadth and curriculum support</li>
+          <li>Pro: adds personalization and reporting</li>
+          <li>School: introduces multi-user and institutional tooling</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-num">11</div>
+    <div class="kicker">Personas</div>
+    <h2>Who Mor'Tek serves</h2>
+    <div class="grid3">
+      <div class="card persona"><h3>Learner</h3><p>Needs confidence, repetition, challenge progression, and visible achievement.</p></div>
+      <div class="card persona"><h3>Parent</h3><p>Wants measurable value, structured learning, and affordable academic support.</p></div>
+      <div class="card persona"><h3>School</h3><p>Needs scalable access, progress tracking, branding, and offline-friendly options.</p></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-num">12</div>
+    <div class="kicker">Value Proposition</div>
+    <h2>Why each audience could buy in</h2>
+    <div class="grid3">
+      <div class="card"><h3>Students</h3><ul><li>Fast practice loops</li><li>Engaging interface</li><li>Progress through difficulty</li></ul></div>
+      <div class="card"><h3>Parents</h3><ul><li>Visible structure</li><li>Affordable tiers</li><li>Multiple STEM subjects</li></ul></div>
+      <div class="card"><h3>Schools</h3><ul><li>Up to 50 profiles</li><li>Teacher dashboard potential</li><li>CAPS progress orientation</li></ul></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-num">13</div>
+    <div class="kicker">School Licensing</div>
+    <h2>B2B upside is built into the pricing model</h2>
+    <div class="grid2">
+      <div class="card">
+        <ul>
+          <li>School plan priced at <b>R299/month</b>.</li>
+          <li>Supports <b>up to 50 learner profiles</b>.</li>
+          <li>Includes teacher dashboard and printable worksheet concepts.</li>
+          <li>Mentions offline USB deployment—useful for connectivity-constrained environments.</li>
+          <li>Creates a pathway from direct consumer traction into institution sales.</li>
+        </ul>
+      </div>
+      <div class="card"><canvas id="chartB2B"></canvas></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-num">14</div>
+    <div class="kicker">Competitive Positioning</div>
+    <h2>Where Mor'Tek can stand out</h2>
+    <div class="grid2">
+      <div class="card">
+        <table>
+          <tr><th>Axis</th><th>Mor'Tek strength</th></tr>
+          <tr><td>Localization</td><td>CAPS alignment for Grades 11–12</td></tr>
+          <tr><td>Engagement</td><td>Gamified timed missions + leaderboard</td></tr>
+          <tr><td>Subject mix</td><td>Maths + Coding + Robotics/AI</td></tr>
+          <tr><td>Commercial breadth</td><td>Consumer + school license</td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <p>Most generic quiz apps compete on breadth. Mor'Tek’s advantage is <b>local curriculum fit</b>, <b>premium identity</b>, and an unusually modern STEM mix for secondary learners.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-num">15</div>
+    <div class="kicker">KPI Framework</div>
+    <h2>What to measure next</h2>
+    <div class="grid2">
+      <div class="card"><canvas id="chartKPIs"></canvas></div>
+      <div class="card">
+        <ul>
+          <li>Daily active learners</li>
+          <li>Missions per learner</li>
+          <li>Completion rate per difficulty</li>
+          <li>Upgrade conversion: Free → Scholar → Pro</li>
+          <li>School seat utilization</li>
+          <li>Topic mastery by grade and subject</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-num">16</div>
+    <div class="kicker">Go-To-Market</div>
+    <h2>Initial growth levers</h2>
+    <div class="grid3">
+      <div class="card"><h3>Student-led</h3><p>Social proof, leaderboard competition, free plan onboarding, and subject-specific campaigns.</p></div>
+      <div class="card"><h3>Parent-led</h3><p>Performance report messaging, affordable entry pricing, and STEM career alignment.</p></div>
+      <div class="card"><h3>School-led</h3><p>Demo days, branded licensing, and curriculum reinforcement for after-school programs.</p></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-num">17</div>
+    <div class="kicker">Technical MVP</div>
+    <h2>What the uploaded product already demonstrates</h2>
+    <div class="grid2">
+      <div class="card">
+        <ul>
+          <li>Single-file HTML/CSS/JS MVP with embedded assets.</li>
+          <li>Client-side state for plan, profile, settings, and leaderboard.</li>
+          <li>Structured question database that can later move into APIs or CMS.</li>
+          <li>Responsive front-end foundation suitable for mobile-first deployment.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Next technical upgrades</h3>
+        <ul>
+          <li>User authentication and cloud persistence</li>
+          <li>Teacher/admin dashboard</li>
+          <li>Real analytics pipeline</li>
+          <li>Content management and authoring tools</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-num">18</div>
+    <div class="kicker">Roadmap</div>
+    <h2>Suggested 4-phase rollout</h2>
+    <div class="timeline">
+      <div class="step"><h3>Phase 1</h3><p class="small">Launch polished direct-to-student MVP and capture baseline usage.</p></div>
+      <div class="step"><h3>Phase 2</h3><p class="small">Add accounts, cloud data, dashboards, and richer reporting.</p></div>
+      <div class="step"><h3>Phase 3</h3><p class="small">Expand content breadth and introduce adaptive recommendations.</p></div>
+      <div class="step"><h3>Phase 4</h3><p class="small">Scale school licensing, teacher tools, and offline deployment packages.</p></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-num">19</div>
+    <div class="kicker">Risks & Mitigations</div>
+    <h2>What to watch early</h2>
+    <div class="grid2">
+      <div class="card">
+        <table>
+          <tr><th>Risk</th><th>Mitigation</th></tr>
+          <tr><td>Content fatigue</td><td>Expand question bank and rotate fresh missions weekly</td></tr>
+          <tr><td>Free-user churn</td><td>Use reports, streaks, and locked premium value to convert</td></tr>
+          <tr><td>School sales friction</td><td>Offer pilot packages and case-study based onboarding</td></tr>
+          <tr><td>Data limitation</td><td>Instrument real analytics events from day one</td></tr>
+        </table>
+      </div>
+      <div class="card"><p>Mor'Tek already has a compelling brand/product shell. The biggest unlock now is operationalizing content depth, analytics, and institution-ready workflows.</p></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-num">20</div>
+    <div class="kicker">Closing</div>
+    <h2>Mor'Tek Academy is presentation-ready and MVP-ready</h2>
+    <div class="grid2">
+      <div class="card">
+        <p>The uploaded source already contains the ingredients of a real edtech launch: a strong brand, functional learner flow, structured curriculum, monetization tiers, and clear expansion space.</p>
+        <p><b>Immediate action:</b> use the live MVP, validate engagement, then convert the strongest signals into school and premium learner growth.</p>
+      </div>
+      <div class="card">
+        <div class="metric">Next step</div>
+        <p>Share the live MVP, review this deck, and iterate the agent project if you want a more investor-specific, school-sales-specific, or parent-marketing-specific version.</p>
+      </div>
+    </div>
+    <div class="footer">End of presentation</div>
+  </section>
+</div>
+
+<script>
+  const commonOptions = {responsive:true, maintainAspectRatio:false, plugins:{legend:{labels:{color:'#ececec'}}}, scales:{x:{ticks:{color:'#d0d0d0'}, grid:{color:'rgba(255,255,255,.08)'}}, y:{ticks:{color:'#d0d0d0'}, grid:{color:'rgba(255,255,255,.08)'}}}};
+  new Chart(document.getElementById('chartGame'), {type:'bar', data:{labels:['Easy','Medium','Hard'], datasets:[{label:'Timer (seconds)', data:[25,20,15], backgroundColor:['#00ff88','#c9a227','#ff4d5f']},{label:'Points', data:[100,150,200], backgroundColor:['rgba(0,255,136,.35)','rgba(201,162,39,.55)','rgba(255,77,95,.45)']}]}, options:commonOptions});
+  new Chart(document.getElementById('chartCurriculum'), {type:'radar', data:{labels:['G11 Maths','G12 Maths','G11 Coding','G12 Coding','G11 Robotics','G12 Robotics'], datasets:[{label:'Topics', data:[8,8,8,8,8,8], backgroundColor:'rgba(201,162,39,.2)', borderColor:'#ffd700', pointBackgroundColor:'#00d4ff'}]}, options:{responsive:true, maintainAspectRatio:false, plugins:{legend:{labels:{color:'#ececec'}}}, scales:{r:{angleLines:{color:'rgba(255,255,255,.08)'}, grid:{color:'rgba(255,255,255,.08)'}, pointLabels:{color:'#e9e9e9'}, ticks:{display:false}}}}});
+  new Chart(document.getElementById('chartQuestions'), {type:'doughnut', data:{labels:['Maths','Coding & IT','Robotics & AI'], datasets:[{data:[60,60,60], backgroundColor:['#00d4ff','#00ff88','#ffd700']}]}, options:{responsive:true, maintainAspectRatio:false, plugins:{legend:{labels:{color:'#ececec'}}}}});
+  new Chart(document.getElementById('chartPricing'), {type:'line', data:{labels:['Free','Scholar','Pro','School'], datasets:[{label:'Monthly Price (R)', data:[0,49,99,299], borderColor:'#ffd700', backgroundColor:'rgba(201,162,39,.25)', tension:.35, fill:true}]}, options:commonOptions});
+  new Chart(document.getElementById('chartFeatures'), {type:'bar', data:{labels:['Free','Scholar','Pro','School'], datasets:[{label:'Listed feature count', data:[4,7,6,6], backgroundColor:['#555','#00d4ff','#ffd700','#00ff88']}]}, options:commonOptions});
+  new Chart(document.getElementById('chartB2B'), {type:'pie', data:{labels:['Learner Profiles','Teacher Dashboard','Worksheets/Branding','Offline/Support'], datasets:[{data:[50,15,20,15], backgroundColor:['#ffd700','#00d4ff','#00ff88','#ff4d5f']}]}, options:{responsive:true, maintainAspectRatio:false, plugins:{legend:{labels:{color:'#ececec'}}}}});
+  new Chart(document.getElementById('chartKPIs'), {type:'bar', data:{labels:['Activation','Retention','Completion','Conversion','Seat Utilization'], datasets:[{label:'Priority', data:[95,90,88,84,80], backgroundColor:['#ffd700','#00d4ff','#00ff88','#c9a227','#ff4d5f']}]}, options:commonOptions});
+</script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+</html>
