@@ -157,4 +157,4 @@ a=a.filter(q=>q.question&&q.options&&q.options.length>1&&q.answer>=0).map((q,i)=
 async function exp(){const b=new Blob([JSON.stringify({questions:await all(),users:users()},null,1)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='mortek-export.json';a.click()}
 /* ---- boot ---- */
 (async()=>{if((await cnt())==0&&window.QSEED)await put(window.QSEED);if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('sw.js');R()})();
-</script></body></html>
+</script></body></html> 
